@@ -1,0 +1,52 @@
+---
+title: "R Notebook"
+output:
+  html_notebook: default
+  pdf_document: default
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+
+```{r echo=TRUE}
+set.seed(123) # set seed for reproducibility
+arr <- rnorm(100)
+hist(arr, col="blue")
+abline(v = mean(arr), col="red")
+
+```
+
+
+## Visualize time series data.
+
+```{r echo = FALSE, fig.height=3, fig.width=8}
+#install.packages("dygraphs")
+library(dygraphs)
+
+lungDeaths <- cbind(mdeaths, fdeaths)
+
+dygraph(lungDeaths) %>%
+  dySeries("mdeaths", label = "Male") %>%
+  dySeries("fdeaths", label = "Female") %>%
+  dyOptions(stackedGraph = T) %>%
+  dyRangeSelector(height = 20)
+
+
+```
+  
+
+## It is also possible to run python code.
+
+
+```{python echo=FALSE, engine.path="C:/Anaconda3/envs/soundPy3/python"}
+import sys
+
+print (sys.version)
+x = 'hello from python!'
+print(x)
+```
+  
+  
+## Add Latex
+
+$$\sum_{i=1}^{n} X^2_i$$

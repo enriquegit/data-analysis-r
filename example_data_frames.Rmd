@@ -1,0 +1,57 @@
+---
+title: "R Data frames"
+output: html_notebook
+---
+
+
+```{r message=FALSE, include=FALSE}
+#Make sure to install all required libraries before loading them. For example: install.packages("ggpubr")
+library("ggpubr")
+
+```
+
+# The ToothGrowth Data Set
+
+This dataset shows tooth growth in guinea pigs after receiving vitamin C at various doses with either orange juice ("OJ") or ascorbic acid tablet ("VC") as the delivery method.
+
+![](../img/guinea.jpg){width=300px}
+
+
+```{r echo=TRUE}
+#load the dataset
+data <- ToothGrowth
+
+#print the first n rows
+head(data, 10)
+
+#print a summary of the dataset
+summary(data)
+
+```
+
+Rows in the dataframe `r nrow(data)`  
+Columns in the dataframe ``r ncol(data)``  
+Compute the mean for each column ``r colMeans(data[,-2])``
+
+
+
+```{r echo=TRUE}
+#Lets compare the orange juice v.s. the tablet group
+p <- ggboxplot(data, x = "supp", y = "len", color = "supp", palette = "jco", add = "jitter")
+#  Add p-value
+p + stat_compare_means(method = "wilcox.test")
+
+```
+
+
+
+
+```{r eval=FALSE, include=FALSE}
+#References
+
+# Generate boxplots: http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/76-add-p-values-and-significance-levels-to-ggplots/#compare-more-than-two-groups
+
+
+
+```
+
